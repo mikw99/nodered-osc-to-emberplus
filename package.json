@@ -1,0 +1,23 @@
+{
+  "name": "nodered-osc-to-emberplus",
+  "version": "1.0.0",
+  "description": "a specialzed node to bridge osc-values to a lawo-console",
+  "dependencies": {"node-emberplus": "^3.0.0"},
+  "main": "emberOut.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "emberplus",
+    "osc",
+    "lawo",
+    "node-red"
+  ],
+   "node-red" : {
+        "nodes": {
+            "emberOut": "emberOut.js"
+        }
+},
+  "author": "Mika Wagner, NEP Germany GmbH",
+  "license": "SEE LICENSE IN README"
+}
