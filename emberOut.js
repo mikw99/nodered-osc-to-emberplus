@@ -71,6 +71,8 @@ function EmberOut(config) {
 
     //verify Nodes callback function
     function verifyNodes() {
+        console.log("verifying nodes");
+        
         if (emberNodesFader.includes(undefined)) {
             let errorIndexFader = emberNodesFader.map((e, i) => e === undefined ? i : "").filter(String);
             console.log("Undefined Entry in emberNodesFader array at index " + errorIndexFader + ". Inject msg.topic reScan to try again.");
@@ -85,14 +87,15 @@ function EmberOut(config) {
         }
         if (emberNodesGrp.includes(undefined)) {
             let errorIndexGrp = emberNodesGrp.map((e, i) => e === undefined ? i : "").filter(String);
-            console.log("Undefined Entry in emberNodesGrp array at index " + errorIndexGrpPFL + ". Inject msg.topic reScan to try again.");
+            console.log("Undefined Entry in emberNodesGrp array at index " + errorIndexGrp + ". Inject msg.topic reScan to try again.");
         }
         if (emberNodesGrpPFL.includes(undefined)) {
             let errorIndexGrpPFL = emberNodesGrpPFL.map((e, i) => e === undefined ? i : "").filter(String);
             console.log("Undefined Entry in emberNodesGrpPFL array at index " + errorIndexGrpPFL + ". Inject msg.topic reScan to try again.");
         }
+    
         console.log("finished getNode operation. See log for errors.");
-    }  
+    }
 
     //declare get-node function
     async function getEmberNodes(callback) {
@@ -109,41 +112,73 @@ function EmberOut(config) {
         emberAdrGrpPFL = flowContext.get("emberAdrGrpPFL");
 
         //get Faders
+        if (Array.isArray(emberAdrFader)) {
         for (let i = 0; i < emberAdrFader.length; i++) {
                 console.log(emberAdrFader[i]);
-                emberNodesFader[i] = await client.getElementByPathAsync(emberAdrFader[i]);
+                emberNodesFader[i] = await client.getElementByPathAsync(emberAdrFader[i])
+                .catch(()=> {console.log("error")});
                 //console.log(JSON.stringify(emberNodesFader[i]));
-            } 
+            }
+        }
+        else {
+            console.log("emberAdrFader is not an array or undefined");
+        }
         
-
             //get Gain
+        if (Array.isArray(emberAdrGain)) {
         for (let i = 0; i < emberAdrGain.length; i++) {
-                emberNodesGain[i] = await client.getElementByPathAsync(emberAdrGain[i]);
+                emberNodesGain[i] = await client.getElementByPathAsync(emberAdrGain[i])
+                .catch(()=> {console.log("error")});
                 //console.log(JSON.stringify(emberNodesGain[i]));
                 }
+            }
+        else {
+            console.log("emberAdrGain is not an array or undefined");
+            }
              
-        
-
             //get PFL
+        if (Array.isArray(emberAdrPFL)) {
         for (let i = 0; i < emberAdrPFL.length; i++) {
                 emberNodesPFL[i] = await client.getElementByPathAsync(emberAdrPFL[i])
+                .catch(()=> {console.log("error")});
                 //console.log(JSON.stringify(emberNodesPFL[i]));
                 }
+            }
+        else {
+            console.log("emberAdrPFL is not an array or undefined");
+        }
 
+        console.log("starting grp scan");
+        
+        if (Array.isArray(emberAdrGrpPFL)) {
         for (let i = 0; i < emberAdrGrpPFL.length; i++) {
                 emberNodesGrpPFL[i] = await client.getElementByPathAsync(emberAdrGrpPFL[i])
+                .catch(()=> {console.log("error")});
                 //console.log(JSON.stringify(emberNodesGrpPFL[i]));
                 }
+        }
+        else {
+            console.log("emberAdrGrpPFL is not an array or not defined");
+        }
+
+        if (Array.isArray(emberAdrGrp)) {
         for (let i = 0; i < emberAdrGrp.length; i++) {
                 emberNodesGrp[i] = await client.getElementByPathAsync(emberAdrGrp[i])
+                .catch(()=> {console.log("error")});
                 //console.log(JSON.stringify(emberNodesGrp[i]));
                 }
-
+        }
+        else {
+            console.log("emberAdrGrp is not an array or not defined");
+        }
+        
+        console.log("scanned all nodes");
         callback();
     }
 
     //declare rescan function
     async function reScan(callback) {
+        console.log("rescanning nodes");
         let errorIndexFader = emberNodesFader.map((e, i) => e === undefined ? i : "").filter(String);
         let errorIndexGain = emberNodesGain.map((e, i) => e === undefined ? i : "").filter(String);
         let errorIndexPFL = emberNodesPFL.map((e, i) => e === undefined ? i : "").filter(String);
