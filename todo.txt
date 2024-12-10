@@ -1,8 +1,1 @@
 To-Do:
-
-		Verify/Re-Scan Nodes (fertig)
-	Disconnect Button
-	Rate-Node einstellen/ausprobieren
-!-> True/False conversion
-	Logging und ErrorHandler (warum wird nichts gethrowt?)
-	function declaration außerhalb von main function?
