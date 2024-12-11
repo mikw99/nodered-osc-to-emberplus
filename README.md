@@ -12,7 +12,7 @@ emberDictGrp     -> oscDictGrp
 emberDictGrpPFL  -> oscDictGrpPFL
 
 You also need:
-ignoreList
+ignoreListDict
 
 You need the ignoreList array, which should contain every right channel of stereo channels in the ember targets, if you filled out the other arrays automatically. It will prevent timeouts when trying to set values for these channels. 
 
