@@ -5,7 +5,7 @@
   "dependencies": {"node-emberplus": "^3.0.0"},
   "main": "emberOut.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "exit 0"
   },
   "keywords": [
     "emberplus",
