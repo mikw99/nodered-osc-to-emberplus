@@ -18,8 +18,8 @@
             "emberOut": "emberOut.js"
         }
 },
-  "author": "Mika Wagner, NEP Germany GmbH",
-  "license": "SEE LICENSE IN README",
+  "author": "mikw99",
+  "license": "MIT",
   "repository": "github:mikw99/nodered-osc-to-emberplus",
 }
 
