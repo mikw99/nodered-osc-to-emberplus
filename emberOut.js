@@ -273,7 +273,7 @@ function EmberOut(config) {
         }
 
         //FADER
-        else if (client.isConnected === true) {
+        else if (client.isConnected() === true) {
 
         if (xosc !== -1 && !ignoreList.includes(emberAdrFader[xosc])) {
             console.log("received Fader Value" + msg.payload);
