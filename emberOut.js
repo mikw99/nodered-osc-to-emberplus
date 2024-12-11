@@ -47,6 +47,8 @@ function EmberOut(config) {
     let emberNodesGrp = new Array();
     let emberNodesGrpPFL = new Array();
 
+    let ignoreList = new Array();
+
 
     //declare reconnect function
     async function tryReconnect() {
@@ -111,6 +113,8 @@ function EmberOut(config) {
         emberAdrGrp = flowContext.get("emberDictGrp");
         emberAdrGrpPFL = flowContext.get("emberAdrGrpPFL");
 
+        ignoreList = flowContext.get("ignoreListDict");
+        
         //get Faders
         if (Array.isArray(emberAdrFader)) {
         for (let i = 0; i < emberAdrFader.length; i++) {
@@ -173,6 +177,7 @@ function EmberOut(config) {
         }
         
         console.log("scanned all nodes");
+        console.log("Nodes on ignore list: " + ignoreList);
         callback();
     }
 
@@ -262,8 +267,15 @@ function EmberOut(config) {
             reScan(verifyNodes);
         }
 
+        else if (msg.topic === "disconnect") {
+            await client.disconnectAsync();
+            console.log("Disconnected manually!");
+        }
+
         //FADER
-        else if (xosc !== -1 && client.isConnected() === true) {
+        else if (client.isConnected === true) {
+
+        if (xosc !== -1 && !ignoreList.includes(emberAdrFader[xosc])) {
             console.log("received Fader Value" + msg.payload);
             await client.setValueAsync(emberNodesFader[xosc], msg.payload)
             .catch(() => {
@@ -272,7 +284,7 @@ function EmberOut(config) {
             }  
                 
         //GAIN
-        else if (xoscGain !== -1 && client.isConnected() === true) {
+        else if (xoscGain !== -1 && !ignoreList.includes(emberAdrGain[xosc])) {
             console.log("received Gain Value" + msg.payload);
             await client.setValueAsync(emberNodesGain[xoscGain], msg.payload)
             .catch(() => {
@@ -281,7 +293,7 @@ function EmberOut(config) {
             } 
         
         //GRP
-        else if (xoscGrp !== -1 && client.isConnected() === true) {
+        else if (xoscGrp !== -1 && !ignoreList.includes(emberAdrGrp[xosc])) {
             console.log("received Grp Value" + msg.payload);
             await client.setValueAsync(emberNodesGrp[xoscGrp], msg.payload)
             .catch(() => {
@@ -290,7 +302,7 @@ function EmberOut(config) {
             } 
 
         //PFL
-        else if (xoscPFL !== -1 && client.isConnected() === true) {
+        else if (xoscPFL !== -1 && !ignoreList.includes(emberAdrPFL[xosc])) {
             console.log("received PFL Value" + msg.payload);
 
             if (msg.payload === 1) {
@@ -313,7 +325,7 @@ function EmberOut(config) {
         }
 
         //GRP PFL
-        else if (xoscGrpPFL !== -1 && client.isConnected() === true) {
+        else if (xoscGrpPFL !== -1 && !ignoreList.includes(emberAdrGrpPFL[xosc])) {
                 console.log("received GRP PFL Value" + msg.payload);
     
             if (msg.payload === 1) {
@@ -334,13 +346,10 @@ function EmberOut(config) {
                 (console.log("invalid PFL payload: " + msg.payload));
             }
             }
-        
-        else if (msg.topic === "Disconnect") {
-            await client.disconnectAsync();
-            console.log("Disconnected manually!");
         }
+        
         else {
-            console.log("received unknown OSC value");
+            console.log("received bad value or connection is disrupted");
         }
 
 
