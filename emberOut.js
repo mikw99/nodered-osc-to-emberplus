@@ -284,7 +284,7 @@ function EmberOut(config) {
             }  
                 
         //GAIN
-        else if (xoscGain !== -1 && !ignoreList.includes(emberAdrGain[xosc])) {
+        else if (xoscGain !== -1 && !ignoreList.includes(emberAdrGain[xoscGain])) {
             console.log("received Gain Value" + msg.payload);
             await client.setValueAsync(emberNodesGain[xoscGain], msg.payload)
             .catch(() => {
@@ -293,7 +293,7 @@ function EmberOut(config) {
             } 
         
         //GRP
-        else if (xoscGrp !== -1 && !ignoreList.includes(emberAdrGrp[xosc])) {
+        else if (xoscGrp !== -1 && !ignoreList.includes(emberAdrGrp[xoscGrp])) {
             console.log("received Grp Value" + msg.payload);
             await client.setValueAsync(emberNodesGrp[xoscGrp], msg.payload)
             .catch(() => {
@@ -302,7 +302,7 @@ function EmberOut(config) {
             } 
 
         //PFL
-        else if (xoscPFL !== -1 && !ignoreList.includes(emberAdrPFL[xosc])) {
+        else if (xoscPFL !== -1 && !ignoreList.includes(emberAdrPFL[xoscPFL])) {
             console.log("received PFL Value" + msg.payload);
 
             if (msg.payload === 1) {
@@ -325,7 +325,7 @@ function EmberOut(config) {
         }
 
         //GRP PFL
-        else if (xoscGrpPFL !== -1 && !ignoreList.includes(emberAdrGrpPFL[xosc])) {
+        else if (xoscGrpPFL !== -1 && !ignoreList.includes(emberAdrGrpPFL[xoscGrpPFL])) {
                 console.log("received GRP PFL Value" + msg.payload);
     
             if (msg.payload === 1) {
