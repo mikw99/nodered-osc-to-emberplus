@@ -22,7 +22,7 @@
   "license": "MIT",
   "repository": "github:mikw99/nodered-osc-to-emberplus",
   "publishConfig": {
-  "@mikw99:registry": "https://npm.nodered-osc-to-emberplus.github.com"
+  "registry": "https://npm.nodered-osc-to-emberplus.github.com"
 },
 }
 
