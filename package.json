@@ -23,6 +23,7 @@
   "repository": "github:mikw99/nodered-osc-to-emberplus",
   "publishConfig": {
   "registry": "https://npm.nodered-osc-to-emberplus.github.com"
-},
 }
+}
+
 
