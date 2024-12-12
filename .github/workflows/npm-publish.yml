@@ -16,8 +16,8 @@ jobs:
         with:
           node-version: 23
       - run: npm ci
-        env:
-             CI: false
+        env: 
+          CI: false
       - run: npm test
 
   publish-npm:
