@@ -111,7 +111,7 @@ function EmberOut(config) {
         emberAdrGain = flowContext.get("emberDictGain");
         emberAdrPFL = flowContext.get("emberDictPFL");
         emberAdrGrp = flowContext.get("emberDictGrp");
-        emberAdrGrpPFL = flowContext.get("emberAdrGrpPFL");
+        emberAdrGrpPFL = flowContext.get("emberDictGrpPFL");
 
         ignoreList = flowContext.get("ignoreListDict");
         
@@ -277,28 +277,31 @@ function EmberOut(config) {
 
         if (xosc !== -1 && !ignoreList.includes(emberAdrFader[xosc])) {
             console.log("received Fader Value" + msg.payload);
-            await client.setValueAsync(emberNodesFader[xosc], msg.payload)
-            .catch(() => {
-                (console.log("unable to set value"));
-            });
+            try {
+            client.setValue(emberNodesFader[xosc], msg.payload);
+            } catch(err) {
+                console.log(err);
+            }
             }  
                 
         //GAIN
         else if (xoscGain !== -1 && !ignoreList.includes(emberAdrGain[xoscGain])) {
             console.log("received Gain Value" + msg.payload);
-            await client.setValueAsync(emberNodesGain[xoscGain], msg.payload)
-            .catch(() => {
-                (console.log("unable to set value"));
-            });
+            try {
+            client.setValue(emberNodesGain[xoscGain], msg.payload);
+            } catch(err) {
+                console.log(err);
+            }
             } 
         
         //GRP
         else if (xoscGrp !== -1 && !ignoreList.includes(emberAdrGrp[xoscGrp])) {
             console.log("received Grp Value" + msg.payload);
-            await client.setValueAsync(emberNodesGrp[xoscGrp], msg.payload)
-            .catch(() => {
-                (console.log("unable to set value"));
-            });
+            try {
+            client.setValue(emberNodesGrp[xoscGrp], msg.payload);
+            } catch(err) {
+                console.log(err);
+            }
             } 
 
         //PFL
