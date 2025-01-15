@@ -2,7 +2,7 @@
   "name": "@mikw99/nodered-osc-to-emberplus",
   "version": "1.1.7",
   "description": "a specialzed node to bridge osc-values to a lawo-console",
-  "dependencies": {"node-emberplus-custom": "https://github.com/mikw99/node-emberplus-custom.git"},
+  "dependencies": {"@mikw99/node-emberplus-custom": "^1.0.0"},
   "main": "emberOut.js",
   "scripts": {
     "test": "exit 0"
