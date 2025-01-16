@@ -1,6 +1,6 @@
 
 module.exports = function(RED) {
-const {EmberClient, EmberClientEvent, LoggingService} = require('node-emberplus');
+const {EmberClient, EmberClientEvent, LoggingService} = require('@mikw99/node-emberplus-custom');
 
 
 function EmberOut(config) {
