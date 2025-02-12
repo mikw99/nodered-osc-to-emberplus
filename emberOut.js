@@ -9,7 +9,7 @@ function EmberOut(config) {
     const node = this;
     let flowContext = this.context().flow;
 
-    const client = new EmberClient({ host: config.clientIP, port: 9000, logger: new LoggingService(5), timeoutValue: 5000 });
+    const client = new EmberClient({ host: config.clientIP, port: config.emberPort, logger: new LoggingService(5), timeoutValue: 5000 });
     console.log("created client");
     node.status({ fill: "yellow", shape: "dot", text: "Inject msg.topic reconnect to connect..." });
 
