@@ -64,7 +64,7 @@ function EmberOut(config) {
                 new Promise(resolve => setTimeout(resolve, reconnectInterval));      
                 }
             );
-        break;
+        //break;
         } 
         if (client.isConnected() === false) {
             console.error("Couldn't reconnect in 5 tries. Inject msg.topic 'reconnect' to try again.");
