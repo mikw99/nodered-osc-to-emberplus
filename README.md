@@ -9,11 +9,11 @@ The index of dictionaries must match. \
 It is recommended to run only one ember+ Node per subflow, and create the necessary arrays for each. \
 \
 For EmberOut: \
-emberDictFader   -> oscDictFader \
-emberDictGain    -> oscDictGain \
-emberDictPFL     -> oscDictPFL \
-emberDictGrp     -> oscDictGrp \
-emberDictGrpPFL  -> oscDictGrpPFL \
+oscDictFader -> emberDictFader  \
+oscDictGain ->  emberDictGain   \
+oscDictPFL -> emberDictPFL   \
+oscDictGrp ->  emberDictGrp  \
+oscDictGrpPFL -> emberDictGrpPFL  \
 \
 For EmberIn: \
 emberInputDict   -> oscOutputDict \
