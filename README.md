@@ -20,11 +20,11 @@ emberInputDict   -> oscOutputDict \
 emberInputDictPFL -> oscOutputDictPFL \
 \
 For EmberX: \
-emberInputDict -> emberOutputDict \
+emberInputDict -> emberOutputDict 
 
 
 You also need: \
-ignoreListDict \
+ignoreListDict 
 
 You need the ignoreList array, which should contain every right channel of stereo channels in the ember targets, if you filled out the other arrays automatically. It will prevent timeouts when trying to set values for these channels. \
 
