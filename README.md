@@ -21,22 +21,22 @@ emberInputDictPFL -> oscOutputDictPFL \
 \
 For EmberX: \
 emberInputDict -> emberOutputDict \
-\
+
 
 You also need: \
 ignoreListDict \
-\
-You need the ignoreList array, which should contain every right channel of stereo channels in the ember targets, if you filled out the other arrays automatically. It will prevent timeouts when trying to set values for these channels. 
-\
+
+You need the ignoreList array, which should contain every right channel of stereo channels in the ember targets, if you filled out the other arrays automatically. It will prevent timeouts when trying to set values for these channels. \
+
 Aside from the osc-input, you also need to be able to inject a number of command code words. \
-msg.topic "reconnect" \
-msg.topic "get Nodes" \
-msg.topic "reScan" \
-msg.topic "disconnect" \
+msg.topic "reconnect" 
+msg.topic "get Nodes" 
+msg.topic "reScan" 
+msg.topic "disconnect" 
 \
-Workflow: \
-\
-1. Put target IP into node config. \
-2. inject msg.topic "reconnect". \
-3. inject msg.topic "get Nodes". \
-4. wait for "get Node" operation to be finished. \
+Workflow: 
+
+1. Put target IP into node config. 
+2. inject msg.topic "reconnect". 
+3. inject msg.topic "get Nodes". 
+4. wait for "get Node" operation to be finished. 
