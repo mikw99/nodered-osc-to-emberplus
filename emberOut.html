@@ -4,7 +4,8 @@
         color: '#a6bbcf',
         defaults: {
             name: {value:""},
-            clientIP: {value:""}
+            clientIP: {value:""},
+            emberPort: {value:"9000"}
         },
 
         inputs: 1,
@@ -25,8 +26,13 @@
         <label for="node-input-clientIP"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-clientIP" placeholder="Client IP">
     </div>
+    <div class="form-row">
+        <label for="node-input-emberPort"><i class="fa fa-tag"></i> Port</label>
+        <input type="text" id="node-input-emberPort" placeholder="ember Port">
+    </div>
 </script>
 
 <script type="text/html" data-help-name="ember-out">
     <p>A specialized node that takes OSC messages and sends it to a LAWO-console</p>
+    <p>Enter your console IP and Emberplus port, usually 9000 or 9001</p>
 </script>

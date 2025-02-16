@@ -9,7 +9,11 @@ function EmberOut(config) {
     const node = this;
     let flowContext = this.context().flow;
 
+<<<<<<< HEAD
     const client = new EmberClient({ host: config.clientIP, port: 9000, logger: new LoggingService(5), timeoutValue: 5000 });
+=======
+    const client = new EmberClient({ host: config.clientIP, port: config.emberPort, logger: new LoggingService(5), timeoutValue: 5000 });
+>>>>>>> e9457eeee5ec75df8c207a93b506a7b98a7e3400
     console.log("created client");
     node.status({ fill: "yellow", shape: "dot", text: "Inject msg.topic reconnect to connect..." });
 
@@ -68,7 +72,11 @@ function EmberOut(config) {
                 new Promise(resolve => setTimeout(resolve, reconnectInterval));      
                 }
             );
+<<<<<<< HEAD
         
+=======
+        //break;
+>>>>>>> e9457eeee5ec75df8c207a93b506a7b98a7e3400
         } 
         if (client.isConnected() === false) {
             console.error("Couldn't reconnect in 5 tries. Inject msg.topic 'reconnect' to try again.");
