@@ -16,7 +16,7 @@
    "node-red" : {
         "nodes": {
             "emberOut": "emberOut.js",
-            "emberIN": "emberIn.js",
+            "emberIn": "emberIn.js",
             "emberX": "emberX.js"
         }
 },
