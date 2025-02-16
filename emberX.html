@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    RED.nodes.registerType('ember-x',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            clientIP_1: {value:""},
+            clientIP_2: {value:""},
+            clientPort_1: {value:"9000"},
+            clientPort_2: {value:"9000"}
+        },
+        inputs: 1,
+        outputs: 0,
+        icon: "file.svg",
+        label: function() {
+            return this.name||"ember-x";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="ember-x">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-clientIP_1"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-clientIP_1" placeholder="Client_1 Receive IP">
+    </div>
+    <div class="form-row">
+        <label for="node-input-clientIP_2"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-clientIP_2" placeholder="Client_2 Send IP">
+    </div>
+    <div class="form-row">
+        <label for="node-input-clientPort_1"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-clientPort_1" placeholder="Client_1 Port">
+    </div>
+    <div class="form-row">
+        <label for="node-input-clientPort_2"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-clientPort_2" placeholder="Client_2 Port">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="ember-x">
+    <p>A specialized node that receives parameter updates from a LAWO-console and sends it to a second console</p>
+</script>

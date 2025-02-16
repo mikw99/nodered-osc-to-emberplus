@@ -9,7 +9,7 @@ function EmberOut(config) {
     const node = this;
     let flowContext = this.context().flow;
 
-    client = new EmberClient({ host: config.clientIP, port: 9000, logger: new LoggingService(5), timeoutValue: 5000 });
+    const client = new EmberClient({ host: config.clientIP, port: 9000, logger: new LoggingService(5), timeoutValue: 5000 });
     console.log("created client");
     node.status({ fill: "yellow", shape: "dot", text: "Inject msg.topic reconnect to connect..." });
 
@@ -47,6 +47,10 @@ function EmberOut(config) {
     let emberNodesGrp = new Array();
     let emberNodesGrpPFL = new Array();
 
+    //let emberNodesLabel = new Array();
+    //let emberAdrLabel = new Array();
+    //let oscAdrLabel = new Array();
+
     let ignoreList = new Array();
 
 
@@ -64,7 +68,7 @@ function EmberOut(config) {
                 new Promise(resolve => setTimeout(resolve, reconnectInterval));      
                 }
             );
-        break;
+        
         } 
         if (client.isConnected() === false) {
             console.error("Couldn't reconnect in 5 tries. Inject msg.topic 'reconnect' to try again.");
@@ -106,15 +110,31 @@ function EmberOut(config) {
         oscAdrPFL = flowContext.get("oscDictPFL");
         oscAdrGrp = flowContext.get("oscDictGrp");
         oscAdrGrpPFL = flowContext.get("oscDictGrpPFL");
+        //oscAdrLabel= flowContext.get("oscDictLabel");
     
         emberAdrFader = flowContext.get("emberDictFader");
         emberAdrGain = flowContext.get("emberDictGain");
         emberAdrPFL = flowContext.get("emberDictPFL");
         emberAdrGrp = flowContext.get("emberDictGrp");
         emberAdrGrpPFL = flowContext.get("emberDictGrpPFL");
+        //emberAdrLabel = flowContext.get("emberDictLabel");
 
         ignoreList = flowContext.get("ignoreListDict");
-        
+
+        //Label return
+        /*
+        if (Array.isArray(emberAdrLabel)) {
+        for (let i = 0; i < emberAdrLabel.length); i+) {
+        emberNodesLabel[i] = await client.getElementByPathAsync(emberAdrLabel[i], () => {
+            msg.topic = oscAdrLabel[i];
+            msg.payload = emberAdrLabel[i].value;
+            node.send(msg);
+            })
+            .catch(()=> {console.log("error at Label return for " + emberAdrLabel[i])});
+            }
+        }
+        */
+
         //get Faders
         if (Array.isArray(emberAdrFader)) {
         for (let i = 0; i < emberAdrFader.length; i++) {
