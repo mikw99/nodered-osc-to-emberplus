@@ -1,5 +1,5 @@
 # nodered-osc-to-emberplus
-A specialized node to bridge a limited range of osc commands to a lawo console.
+A specialized node to bridge a limited range of osc commands to a lawo console. (Added two additional nodes for Ember-to-Ember and Ember-to-OSC, read-me update will follow soon)
 
 Prerequisites in flow:
 
