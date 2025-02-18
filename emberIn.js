@@ -1,4 +1,4 @@
-module.exports = function(RED) {
+statusmodule.exports = function(RED) {
     "use strict";
     const {EmberClient, EmberClientEvent, LoggingService} = require('node-emberplus');
     
@@ -13,7 +13,7 @@ module.exports = function(RED) {
 
         console.log("created clients");
         node.status({ fill: "yellow", shape: "dot", text: "Inject msg.topic reconnect to connect..." });
-        statMsg.topic = "status";
+        statMsg.topic = "status " + config.name;
         statMsg.payload = "ready to connect";
         node.send([null, statMsg]);
     
@@ -26,7 +26,7 @@ module.exports = function(RED) {
                 await client.disconnectAsync();
                 console.log("client connection = " + client.isConnected());
                 node.status({ fill: "red", shape: "dot", text: "disconnected" });
-                statMsg.topic = "status";
+                statMsg.topic = "status " + config.name;
                 statMsg.payload = "disconnected";
                 node.send([null, statMsg]);
                 console.warn("Please reconnect manually and get Nodes again!");
@@ -50,7 +50,7 @@ module.exports = function(RED) {
         while (client.isConnected() === false && retryCount < 5) {
         retryCount++;
         node.status({ fill: "yellow", shape: "dot", text: "connection pending..." });
-        statMsg.topic = "status";
+        statMsg.topic = "status " + config.name;
         statMsg.payload = "connection pending";
         node.send([null, statMsg]);
         
@@ -123,7 +123,7 @@ module.exports = function(RED) {
         client.on(EmberClientEvent.CONNECTED, async () => {
             console.log("Connected!");
             node.status({ fill: "green", shape: "dot", text: "connected" });
-            statMsg.topic = "status";
+            statMsg.topic = "status " + config.name;
             statMsg.payload = "connected";
             node.send([null, statMsg]);
         });
@@ -132,7 +132,7 @@ module.exports = function(RED) {
         client.on(EmberClientEvent.DISCONNECTED, async () => {    
             console.log("Disconnected.");
             node.status({ fill: "red", shape: "dot", text: "disconnected" }); 
-            statMsg.topic = "status";
+            statMsg.topic = "status " + config.name;
             statMsg.payload = "disconnected";
             node.send([null, statMsg]);
         });
