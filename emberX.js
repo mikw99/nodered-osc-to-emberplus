@@ -49,11 +49,15 @@ module.exports = function(RED) {
     async function tryReconnect() {
 
         let retryCount = 0;
+        const reconnectInterval = 3000;
 
         while (client_1.isConnected() === false && retryCount < 5) {
             retryCount++;
             await client_1.connectAsync()
-            .catch(console.log("client_1 could not connect. Tried " + retryCount + " times."));
+            .catch(() => {
+                console.error("connection error client 1" + retryCount);
+                new Promise(resolve => setTimeout(resolve, reconnectInterval));      
+                }
         }
         if (client_1.isConnected() === false) {
             console.error("Couldn't reconnect client 1 in 5 tries. Inject msg.topic 'reconnect' to try again.");
@@ -63,7 +67,10 @@ module.exports = function(RED) {
         while (client_2.isConnected() === false && retryCount < 5) {
             retryCount++;
             await client_2.connectAsync()
-            .catch(console.log("client_2 could not connect. Tried " + retryCount + " times."));
+            .catch(() => {
+                console.error("connection error client 2" + retryCount);
+                new Promise(resolve => setTimeout(resolve, reconnectInterval));      
+                }
         }
         if (client_2.isConnected() === false) {
             console.error("Couldn't reconnect client 2 in 5 tries. Inject msg.topic 'reconnect' to try again.");
@@ -73,11 +80,13 @@ module.exports = function(RED) {
     }
 
     async function bridgeNodes() {
+        console.log("started bridgeNode function");
         emberInputNodes = flowContext.get("emberInputDict");
         emberOutputNodes = flowContext.get("emberOutputDict");
         
-        for (let i; i < emberInputNodes.length; i++) {
-            
+        for (let i = 0; i < emberInputNodes.length; i++) {
+
+            console.log("asked for embernode" + emberInputNodes[i]);
             await client_1.getElementByPathAsync(emberInputNodes[i], () => {
                 client_2.setValue(emberOutputNodes[i], emberInputNodes[i].value);
             });
