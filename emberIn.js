@@ -37,26 +37,38 @@ module.exports = function(RED) {
         let ignoreList = new Array();
 
     async function tryReconnect() {
-
+        console.log("Trying to reconnect.");
         let retryCount = 0;
-
+        const reconnectInterval = 3000;
+        
         while (client.isConnected() === false && retryCount < 5) {
-            retryCount++;
-            await client.connectAsync()
-            .catch(console.log("client could not connect. Tried " + retryCount + " times."));
-        }
+        retryCount++;
+        node.status({ fill: "yellow", shape: "dot", text: "connection pending..." });
+        await client.connectAsync().catch(() => {
+                console.error("connection error" + retryCount);
+                new Promise(resolve => setTimeout(resolve, reconnectInterval));      
+                }
+            );
+
+        //break;
+
+        } 
         if (client.isConnected() === false) {
             console.error("Couldn't reconnect in 5 tries. Inject msg.topic 'reconnect' to try again.");
         }
     }
 
     async function oscFader() {
+        console.log("started Fader function");
         emberInputNodes = flowContext.get("emberInputDict");
         oscOutputPath = flowContext.get("oscOutputDict");
         
-        for (let i; i < emberInputNodes.length; i++) {
+        for (let i = 0; i < emberInputNodes.length; i++) {
+            
+            console.log("asked for embernode" + emberInputNodes[i]);
             
             await client.getElementByPathAsync(emberInputNodes[i], () => {
+               
                 let oscMsg = {};
 
                 oscMsg.topic = oscOutputPath[i];
@@ -68,10 +80,13 @@ module.exports = function(RED) {
     }
 
     async function oscPFL() {
+        console.log("started PFL function");
         emberInputNodesPFL = flowContext.get("emberInputPFLDict");
         oscOutputPathPFL = flowContext.get("oscOutputPFLDict");
         
-        for (let i; i < emberInputNodes.length; i++) {
+        for (let i = 0; i < emberInputNodesPFL.length; i++) {
+            
+            console.log("asked for PFL embernode" + emberInputNodesPFL[i]);
             
             await client.getElementByPathAsync(emberInputNodesPFL[i], () => {
                 let oscMsg = {};
