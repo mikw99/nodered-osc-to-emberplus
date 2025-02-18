@@ -57,7 +57,7 @@ module.exports = function(RED) {
             .catch(() => {
                 console.error("connection error client 1" + retryCount);
                 new Promise(resolve => setTimeout(resolve, reconnectInterval));      
-                }
+                });
         }
         if (client_1.isConnected() === false) {
             console.error("Couldn't reconnect client 1 in 5 tries. Inject msg.topic 'reconnect' to try again.");
@@ -70,7 +70,7 @@ module.exports = function(RED) {
             .catch(() => {
                 console.error("connection error client 2" + retryCount);
                 new Promise(resolve => setTimeout(resolve, reconnectInterval));      
-                }
+                });
         }
         if (client_2.isConnected() === false) {
             console.error("Couldn't reconnect client 2 in 5 tries. Inject msg.topic 'reconnect' to try again.");
