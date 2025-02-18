@@ -8,12 +8,16 @@ module.exports = function(RED) {
     
         const node = this;
         let flowContext = this.context().flow;
+        let statMsg = {};
     
         const client_1 = new EmberClient({ host: config.clientIP_1, port: config.clientPort_1, logger: new LoggingService(5), timeoutValue: 5000 });
         const client_2 = new EmberClient({ host: config.clientIP_2, port: config.clientPort_2, logger: new LoggingService(5), timeoutValue: 5000 });
 
         console.log("created clients");
         node.status({ fill: "yellow", shape: "dot", text: "Inject msg.topic reconnect to connect..." });
+        statMsg.topic = "status";
+        statMsg.payload = "ready to connect";
+        node.send(statMsg);
     
         client_1.on(EmberClientEvent.ERROR, async e => {
             console.log(e);
@@ -24,6 +28,9 @@ module.exports = function(RED) {
                 await client.disconnectAsync();
                 console.log("client connection = " + client_1.isConnected());
                 node.status({ fill: "red", shape: "dot", text: "client 1 disconnected" });
+                statMsg.topic = "status";
+                statMsg.payload = "client 1 disconnected";
+                node.send(statMsg);
                 console.warn("Please reconnect manually and get Nodes again!");
             }
         });
@@ -37,6 +44,9 @@ module.exports = function(RED) {
                 await client_2.disconnectAsync();
                 console.log("client_2 connection = " + client_2.isConnected());
                 node.status({ fill: "red", shape: "dot", text: "client 2 disconnected" });
+                statMsg.topic = "status";
+                statMsg.payload = "client 2 disconnected";
+                node.send(statMsg);
                 console.warn("Please reconnect manually and get Nodes again!");
             }
         });
@@ -98,24 +108,36 @@ module.exports = function(RED) {
         console.log("Client 1 Connected!");
         if (client_1.isConnected() === true && client_2.isConnected() === true) {
            node.status({ fill: "green", shape: "dot", text: "Both clients connected" });
+           statMsg.topic = "status";
+           statMsg.payload = "Both clients connected";
+           node.send(statMsg);
         }
     });    
        
     client_1.on(EmberClientEvent.DISCONNECTED, async () => {    
         console.log("Client 1 Disconnected.");
-        node.status({ fill: "red", shape: "dot", text: "client 1 disconnected" });     
+        node.status({ fill: "red", shape: "dot", text: "client 1 disconnected" });  
+        statMsg.topic = "status";
+        statMsg.payload = "Client 1 disconnected";
+        node.send(statMsg);   
     });
 
     client_2.on(EmberClientEvent.CONNECTED, async () => {
         console.log("Client 2 Connected!");
         if (client_1.isConnected() === true && client_2.isConnected() === true) {
             node.status({ fill: "green", shape: "dot", text: "Both clients connected" });
+            statMsg.topic = "status";
+            statMsg.payload = "Both client connected";
+            node.send(statMsg);
             }
     });
 
     client_2.on(EmberClientEvent.DISCONNECTED, async () => {    
         console.log("Client 2 Disconnected.");
         node.status({ fill: "red", shape: "dot", text: "client 2 disconnected" });  
+        statMsg.topic = "status";
+        statMsg.payload = "Client 2 disconnected";
+        node.send(statMsg);
     });
 
     this.on('input', async function(msg, send, done) { 

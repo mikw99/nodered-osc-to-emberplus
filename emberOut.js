@@ -8,11 +8,15 @@ function EmberOut(config) {
 
     const node = this;
     let flowContext = this.context().flow;
-
+    let statMsg = {};
     const client = new EmberClient({ host: config.clientIP, port: config.emberPort, logger: new LoggingService(5), timeoutValue: 5000 });
 
     console.log("created client");
     node.status({ fill: "yellow", shape: "dot", text: "Inject msg.topic reconnect to connect..." });
+
+    statMsg.topic = "status";
+    statMsg.payload = "ready to connect";
+    node.send([null, statMsg]);
 
     client.on(EmberClientEvent.ERROR, async e => {
         console.log(e);
@@ -23,6 +27,9 @@ function EmberOut(config) {
             await client.disconnectAsync();
             console.log("client connection = " + client.isConnected());
             node.status({ fill: "red", shape: "dot", text: "disconnected" });
+            statMsg.topic = "status";
+            statMsg.payload = "disconnected";
+            node.send([null, statMsg]);
             console.warn("Please reconnect manually and get Nodes again!");
         }
     });
@@ -64,6 +71,9 @@ function EmberOut(config) {
         while (client.isConnected() === false && retryCount < 5) {
         retryCount++;
         node.status({ fill: "yellow", shape: "dot", text: "connection pending..." });
+        statMsg.topic = "status";
+        statMsg.payload = "connection pending";
+        node.send([null, statMsg]);
         await client.connectAsync().catch(() => {
                 console.error("connection error" + retryCount);
                 new Promise(resolve => setTimeout(resolve, reconnectInterval));      
@@ -255,12 +265,18 @@ function EmberOut(config) {
     client.on(EmberClientEvent.CONNECTED, async () => {
         console.log("Connected!");
         node.status({ fill: "green", shape: "dot", text: "connected" });
+        statMsg.topic = "status";
+        statMsg.payload = "connected";
+        node.send([null, statMsg]);
     });
 
     //automatically try to reconnect
     client.on(EmberClientEvent.DISCONNECTED, async () => {    
         console.log("Disconnected.");
         node.status({ fill: "red", shape: "dot", text: "disconnected" }); 
+        statMsg.topic = "status";
+        statMsg.payload = "disconnected";
+        node.send([null, statMsg]);
     });
 
     //
