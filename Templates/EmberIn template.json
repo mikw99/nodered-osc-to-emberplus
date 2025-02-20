@@ -1,0 +1,164 @@
+[
+    {
+        "id": "faf10e1db5d6bd81",
+        "type": "tab",
+        "label": "EmberIn Template",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "42cee136c1eeda0b",
+        "type": "inject",
+        "z": "faf10e1db5d6bd81",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "reconnect",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 310,
+        "y": 500,
+        "wires": [
+            [
+                "1aaedab63b05338f"
+            ]
+        ]
+    },
+    {
+        "id": "e705d2d2367260cf",
+        "type": "inject",
+        "z": "faf10e1db5d6bd81",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "get Nodes",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 310,
+        "y": 420,
+        "wires": [
+            [
+                "1aaedab63b05338f"
+            ]
+        ]
+    },
+    {
+        "id": "a6801c8c95c82a29",
+        "type": "inject",
+        "z": "faf10e1db5d6bd81",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 290,
+        "y": 220,
+        "wires": [
+            [
+                "b9dfadf768409b6a"
+            ]
+        ]
+    },
+    {
+        "id": "b9dfadf768409b6a",
+        "type": "function",
+        "z": "faf10e1db5d6bd81",
+        "name": "Create Arrays",
+        "func": "let emberInputAdr = new Array();\nlet emberInputAdrPFL = new Array();\nlet oscOutputAdr = new Array();\nlet oscOutputAdrPFL = new Array();\n\nlet ignoreListDict = new Array();\n\nfor (let i = 0; i < 32; i++) {\n    let j = i + 1;\n\n    // Fader Nodes\n    emberInputAdr[i] = \"2.2.2.1.\" + j + \".4.12.1\"; \n    oscOutputAdr[i] = \"/fader/\" + j + \"/gain\";\n\n    // PFL Nodes\n    emberInputAdrPFL[i] = \"2.2.2.1.\" + j + \".6.3.1.1\";\n    oscOutputAdrPFL[i] = \"/PFL/\" + j;\n    \n}\n\n\n// Dictionaries im Flow-Speicher setzen\nflow.set(\"emberInputDict\", emberInputAdr);\nflow.set(\"oscOutputDict\", oscOutputAdr);\n\nflow.set(\"emberInputDictPFL\", emberInputAdrPFL);\nflow.set(\"oscOutputDictPFL\", oscOutputAdrPFL);\n\n\nflow.set(\"ignoreListDict\", ignoreListDict);\n\nnode.warn(\"Created Arrays.\");\n\nmsg.topic = \"created Arrays\";\n\nreturn msg;\n\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "079ca6bc376b13e9",
+        "type": "debug",
+        "z": "faf10e1db5d6bd81",
+        "name": "Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "97f9d242c87d503b",
+        "type": "comment",
+        "z": "faf10e1db5d6bd81",
+        "name": "This function gets 32 Faders with PFL from a Lawo MC56 MK3",
+        "info": "",
+        "x": 640,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d02535bb724130b0",
+        "type": "comment",
+        "z": "faf10e1db5d6bd81",
+        "name": "change osc addresses and ember+ addresses as you need",
+        "info": "",
+        "x": 630,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "1aaedab63b05338f",
+        "type": "ember-in",
+        "z": "faf10e1db5d6bd81",
+        "name": "",
+        "clientIP": "",
+        "clientPort": "9000",
+        "x": 500,
+        "y": 460,
+        "wires": [
+            [],
+            [
+                "079ca6bc376b13e9"
+            ]
+        ]
+    }
+]

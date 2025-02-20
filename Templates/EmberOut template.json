@@ -1,0 +1,232 @@
+[
+    {
+        "id": "c90a39f2298765a8",
+        "type": "tab",
+        "label": "EmberOut Template",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bec0c4b828b4feef",
+        "type": "inject",
+        "z": "c90a39f2298765a8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "reconnect",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 410,
+        "y": 340,
+        "wires": [
+            [
+                "369dd9566fc16ea6"
+            ]
+        ]
+    },
+    {
+        "id": "6390fa6de2de31ec",
+        "type": "inject",
+        "z": "c90a39f2298765a8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "get Nodes",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "369dd9566fc16ea6"
+            ]
+        ]
+    },
+    {
+        "id": "acb707cf6d105fef",
+        "type": "inject",
+        "z": "c90a39f2298765a8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 390,
+        "y": 160,
+        "wires": [
+            [
+                "24438e273da57662"
+            ]
+        ]
+    },
+    {
+        "id": "24438e273da57662",
+        "type": "function",
+        "z": "c90a39f2298765a8",
+        "name": "Create Arrays",
+        "func": "let emberAdrFader = new Array();\nlet oscAdrFader = new Array();\nlet emberAdrGain = new Array();\nlet oscAdrGain = new Array();\nlet emberAdrPFL = new Array();\nlet oscAdrPFL = new Array();\n\nlet emberAdrGrpPFL = new Array();\nlet emberAdrGrp = new Array();\nlet oscAdrGrp = new Array();\nlet oscAdrGrpPFL = new Array();\n\nlet ignoreListDict = new Array();\n\nfor (let i = 0; i < 32; i++) {\n    let j = i + 1;\n\n    // Fader Nodes\n    emberAdrFader[i] = \"2.2.2.1.\" + j + \".4.12.1\"; \n    oscAdrFader[i] = \"/fader/\" + j + \"/gain\";\n\n    // Gain Nodes\n    emberAdrGain[i] = \"2.2.2.1.\" + j + \".4.1.1\";\n    oscAdrGain[i] = \"/inpgain/\" + j + \"/gain\";\n\n    // PFL Nodes\n    emberAdrPFL[i] = \"2.2.2.1.\" + j + \".6.3.1.1\";\n    oscAdrPFL[i] = \"/PFL/\" + j;\n    \n}\n\nfor (let i = 0; i < 8; i++) {\n    let j = i + 1;\n    let g = i + 2048;\n\n    // Group Nodes\n    emberAdrGrp[i] = \"2.2.2.2.\" + g + \".4.12.1\";\n    oscAdrGrp[i] = \"/group/\" + j + \"/gain\";\n\n    // Group PFL Nodes\n    emberAdrGrpPFL[i] = \"2.2.2.1.\" + g + \".5.3.1.1\";\n    oscAdrGrpPFL[i] = \"/GroupPFL/\" + j;\n    \n}\n\n// Dictionaries im Flow-Speicher setzen\nflow.set(\"emberDictFader\", emberAdrFader);\nflow.set(\"oscDictFader\", oscAdrFader);\n\nflow.set(\"emberDictGain\", emberAdrGain);\nflow.set(\"oscDictGain\", oscAdrGain);\n\nflow.set(\"emberDictPFL\", emberAdrPFL);\nflow.set(\"oscDictPFL\", oscAdrPFL);\n\nflow.set(\"emberDictGrp\", emberAdrGrp);\nflow.set(\"emberDictGrpPFL\", emberAdrGrpPFL);\nflow.set(\"oscDictGrp\", oscAdrGrp);\nflow.set(\"oscDictGrpPFL\", oscAdrGrpPFL);\n\nflow.set(\"ignoreListDict\", ignoreListDict);\n\nnode.warn(\"Created Arrays.\");\n\nmsg.topic = \"created Arrays\";\n\nreturn msg;\n\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c2a0ef2531a331b0",
+        "type": "debug",
+        "z": "c90a39f2298765a8",
+        "name": "Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 850,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "369dd9566fc16ea6",
+        "type": "ember-out",
+        "z": "c90a39f2298765a8",
+        "name": "",
+        "clientIP": "",
+        "emberPort": "9000",
+        "x": 610,
+        "y": 420,
+        "wires": [
+            [],
+            [
+                "c2a0ef2531a331b0"
+            ]
+        ]
+    },
+    {
+        "id": "baeb18369fe730f2",
+        "type": "inject",
+        "z": "c90a39f2298765a8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "reScan",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 400,
+        "y": 380,
+        "wires": [
+            [
+                "369dd9566fc16ea6"
+            ]
+        ]
+    },
+    {
+        "id": "5304bd4476128a3d",
+        "type": "inject",
+        "z": "c90a39f2298765a8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Disconnect",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 410,
+        "y": 420,
+        "wires": [
+            [
+                "369dd9566fc16ea6"
+            ]
+        ]
+    },
+    {
+        "id": "c327400309650282",
+        "type": "comment",
+        "z": "c90a39f2298765a8",
+        "name": "This function gets 32 Faders with InputGain and PFL from a Lawo MC56 MK3",
+        "info": "",
+        "x": 790,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "b59cd0063e8a4d72",
+        "type": "comment",
+        "z": "c90a39f2298765a8",
+        "name": "As well as 8 Groups with PFL",
+        "info": "",
+        "x": 640,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "2b666366768bd6b2",
+        "type": "comment",
+        "z": "c90a39f2298765a8",
+        "name": "change osc addresses and ember+ addresses as you need",
+        "info": "",
+        "x": 730,
+        "y": 120,
+        "wires": []
+    }
+]

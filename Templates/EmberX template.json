@@ -1,0 +1,164 @@
+[
+    {
+        "id": "bc712831d0ba3b27",
+        "type": "tab",
+        "label": "EmberX Template",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e69023264e54444f",
+        "type": "ember-x",
+        "z": "bc712831d0ba3b27",
+        "name": "",
+        "clientIP_1": "",
+        "clientIP_2": "",
+        "clientPort_1": "9000",
+        "clientPort_2": "9000",
+        "x": 700,
+        "y": 240,
+        "wires": [
+            [
+                "ba341c2893d5bb89"
+            ]
+        ]
+    },
+    {
+        "id": "45c30d19162a4129",
+        "type": "inject",
+        "z": "bc712831d0ba3b27",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "reconnect",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "e69023264e54444f"
+            ]
+        ]
+    },
+    {
+        "id": "7181187060478722",
+        "type": "inject",
+        "z": "bc712831d0ba3b27",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "get Nodes",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 470,
+        "y": 200,
+        "wires": [
+            [
+                "e69023264e54444f"
+            ]
+        ]
+    },
+    {
+        "id": "ba341c2893d5bb89",
+        "type": "debug",
+        "z": "bc712831d0ba3b27",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7f098ffce8765328",
+        "type": "inject",
+        "z": "bc712831d0ba3b27",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 450,
+        "y": 120,
+        "wires": [
+            [
+                "20b21a537abf662e"
+            ]
+        ]
+    },
+    {
+        "id": "20b21a537abf662e",
+        "type": "function",
+        "z": "bc712831d0ba3b27",
+        "name": "Create Arrays",
+        "func": "let emberInputAdr = new Array();\n\nlet emberOutputAdr = new Array();\n\n\nlet ignoreListDict = new Array();\n\nfor (let i = 0; i < 32; i++) {\n    let j = i + 1;\n\n    // Fader Nodes\n    emberInputAdr[i] = \"2.2.2.1.\" + j + \".4.12.1\"; \n    emberOutputAdr[i] = \"2.2.2.1.\" + j + \".4.12.1\"; \n\n\n    \n}\n\n\n// Dictionaries im Flow-Speicher setzen\nflow.set(\"emberInputDict\", emberInputAdr);\nflow.set(\"emberOutputDict\", emberOutputAdr);\n\n\n\nflow.set(\"ignoreListDict\", ignoreListDict);\n\nnode.warn(\"Created Arrays.\");\n\nmsg.topic = \"created Arrays\";\n\nreturn msg;\n\n\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4530a4bda52fade4",
+        "type": "comment",
+        "z": "bc712831d0ba3b27",
+        "name": "This function gets 32 Faders with PFL from a Lawo MC56 MK3",
+        "info": "",
+        "x": 800,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "715e57485cdaf16a",
+        "type": "comment",
+        "z": "bc712831d0ba3b27",
+        "name": "change ember+ addresses as you need",
+        "info": "",
+        "x": 730,
+        "y": 80,
+        "wires": []
+    }
+]

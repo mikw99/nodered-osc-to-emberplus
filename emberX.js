@@ -94,6 +94,10 @@ module.exports = function(RED) {
         emberInputNodes = flowContext.get("emberInputDict");
         emberOutputNodes = flowContext.get("emberOutputDict");
         
+        statMsg.topic = "status" + config.name;
+        statMsg.payload = "started Bridge operation";
+        node.send(statMsg);
+
         for (let i = 0; i < emberInputNodes.length; i++) {
 
             console.log("asked for embernode" + emberInputNodes[i]);
@@ -101,6 +105,7 @@ module.exports = function(RED) {
                 client_2.setValue(emberOutputNodes[i], emberInputNodes[i].value);
             });
         }
+
     }
 
     //signal connection

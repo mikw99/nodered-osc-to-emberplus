@@ -1,4 +1,4 @@
-statusmodule.exports = function(RED) {
+module.exports = function(RED) {
     "use strict";
     const {EmberClient, EmberClientEvent, LoggingService} = require('node-emberplus');
     
@@ -72,6 +72,9 @@ statusmodule.exports = function(RED) {
         console.log("started Fader function");
         emberInputNodes = flowContext.get("emberInputDict");
         oscOutputPath = flowContext.get("oscOutputDict");
+        statMsg.topic = "status" + config.name;
+        statMsg.payload = "started Fader input";
+        node.send([null, statMsg]);
         
         for (let i = 0; i < emberInputNodes.length; i++) {
             
@@ -93,6 +96,9 @@ statusmodule.exports = function(RED) {
         console.log("started PFL function");
         emberInputNodesPFL = flowContext.get("emberInputPFLDict");
         oscOutputPathPFL = flowContext.get("oscOutputPFLDict");
+        statMsg.topic = "status" + config.name;
+        statMsg.payload = "started PFL input";
+        node.send([null, statMsg]);
         
         for (let i = 0; i < emberInputNodesPFL.length; i++) {
             
