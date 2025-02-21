@@ -53,7 +53,11 @@ module.exports = function(RED) {
 
         //declare EmberNodes to get
         let emberInputNodes = new Array();
+        let emberInputNodesGrp = new Array();
+
         let emberOutputNodes = new Array();
+        let emberOutputNodesGrp = new Array();
+
         let ignoreList = new Array();
 
     async function tryReconnect() {
@@ -91,20 +95,42 @@ module.exports = function(RED) {
 
     async function bridgeNodes() {
         console.log("started bridgeNode function");
+
         emberInputNodes = flowContext.get("emberInputDict");
+        emberInputNodesGrp = flowContext.get("emberInputDictGrp");
+
         emberOutputNodes = flowContext.get("emberOutputDict");
+        emberOutputNodesGrp = flowContext.get("emberOutputDictGrp");
         
         statMsg.topic = "status" + config.name;
         statMsg.payload = "started Bridge operation";
         node.send(statMsg);
 
+        if (Array.isArray(emberInputNodes)) {
         for (let i = 0; i < emberInputNodes.length; i++) {
+
+            if (!ignoreList.includes(emberInputNodes[i])) {
 
             console.log("asked for embernode" + emberInputNodes[i]);
             await client_1.getElementByPathAsync(emberInputNodes[i], () => {
                 client_2.setValue(emberOutputNodes[i], emberInputNodes[i].value);
             });
         }
+    }
+    }
+
+    if (Array.isArray(emberInputNodesGrp)) {
+        for (let i = 0; i < emberInputNodesGrp.length; i++) {
+
+            if (!ignoreList.includes(emberInputNodesGrp[i])) {
+                
+            console.log("asked for embernode" + emberInputNodesGrp[i]);
+            await client_1.getElementByPathAsync(emberInputNodesGrp[i], () => {
+                client_2.setValue(emberOutputNodesGrp[i], emberInputNodesGrp[i].value);
+            });
+        }
+    }
+    }
 
     }
 

@@ -39,6 +39,11 @@ module.exports = function(RED) {
         let emberInputNodesPFL = new Array();
         let oscOutputPath = new Array();
         let oscOutputPathPFL = new Array();
+
+        let emberInputNodesGrp = new Array();
+        let emberInputNodesGrpPFL = new Array();
+        let oscOutputPathGrp = new Array();
+        let oscOutputPathGrpPFL = new Array();
         
         let ignoreList = new Array();
 
@@ -70,12 +75,17 @@ module.exports = function(RED) {
 
     async function oscFader() {
         console.log("started Fader function");
+
         emberInputNodes = flowContext.get("emberInputDict");
         oscOutputPath = flowContext.get("oscOutputDict");
+        emberInputNodesGrp = flowContext.get("emberInputDictGrp");
+        oscOutputPathGrp = flowContext.get("oscOutputDictGrp");
+
         statMsg.topic = "status" + config.name;
         statMsg.payload = "started Fader input";
         node.send([null, statMsg]);
         
+        if (Array.isArray(emberInputNodes)) {
         for (let i = 0; i < emberInputNodes.length; i++) {
             
             console.log("asked for embernode" + emberInputNodes[i]);
@@ -92,14 +102,37 @@ module.exports = function(RED) {
         }
     }
 
+    if (Array.isArray(emberInputNodesGrp)) {
+        for (let i = 0; i < emberInputNodesGrp.length; i++) {
+            
+            console.log("asked for Grp embernode" + emberInputNodesGrp[i]);
+            
+            await client.getElementByPathAsync(emberInputNodesGrp[i], () => {
+               
+                let oscMsg = {};
+
+                oscMsg.topic = oscOutputPathGrp[i];
+                oscMsg.payload = emberInputNodesGrp[i].value;
+
+                node.send(oscMsg);
+            });
+        }
+    }
+    }
+
     async function oscPFL() {
         console.log("started PFL function");
+
         emberInputNodesPFL = flowContext.get("emberInputPFLDict");
         oscOutputPathPFL = flowContext.get("oscOutputPFLDict");
+        emberInputNodesGrpPFL = flowContext.get("emberInputDictGrpPFL");
+        oscOutputPathGrpPFL = flowContext.get("oscOutputDictGrpPFL");
         statMsg.topic = "status" + config.name;
+
         statMsg.payload = "started PFL input";
         node.send([null, statMsg]);
         
+        if (Array.isArray(emberInputNodesPFL)) {
         for (let i = 0; i < emberInputNodesPFL.length; i++) {
             
             console.log("asked for PFL embernode" + emberInputNodesPFL[i]);
@@ -117,12 +150,39 @@ module.exports = function(RED) {
                     console.log("received bad pfl value");
                 }
 
-                oscMsg.topic = oscOutputPath[i];
+                oscMsg.topic = oscOutputPathPFL[i];
                 oscMsg.payload = pflConv;
 
                 node.send(oscMsg);
             });
         }
+    }
+
+    if (Array.isArray(emberInputNodesGrpPFL)) {
+        for (let i = 0; i < emberInputNodesGrpPFL.length; i++) {
+            
+            console.log("asked for Grp PFL embernode" + emberInputNodesGrpPFL[i]);
+            
+            await client.getElementByPathAsync(emberInputNodesGrpPFL[i], () => {
+                let oscMsg = {};
+                let pflConv;
+                if (emberInputNodesGrpPFL[i].value === true) {
+                    pflConv = 1;
+                }
+                else if (emberInputNodesGrpPFL[i].value === true) {
+                    pflConv = 0;
+                }
+                else {
+                    console.log("received bad pfl value");
+                }
+
+                oscMsg.topic = oscOutputPathGrpPFL[i];
+                oscMsg.payload = pflConv;
+
+                node.send(oscMsg);
+            });
+        }
+    }
     }
 
         //signal connection
