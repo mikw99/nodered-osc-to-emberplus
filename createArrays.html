@@ -1,0 +1,92 @@
+<script type="text/javascript">
+    RED.nodes.registerType('create-arrays',{
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: {value:""},
+            emberFaderScheme: {value:"2.2.2.1.x.4.12.1"},
+            oscFaderScheme: {value:"fader/x/gain/"},
+            lowerFader: {value:"0"},
+            upperFader: {value:"32"},
+
+            emberDictAddress: {value:"emberDictFader"},
+            oscDictAddress: {value:"oscDictFader"}
+
+        },
+
+        inputs: 1,
+        outputs: 1,
+        icon: "file.svg",
+        label: function() {
+            return this.name||"create-arrays";
+        },
+
+        oneditprepare: function () {
+            $("#node-input-emberDictAddress").typedInput({
+            types: [
+            {
+            value: "Dict",
+            options: [
+                { value: "emberDictFader", label: "Fader"},
+                { value: "emberDictGain", label: "Gain"},
+                { value: "emberDictGrp", label: "Groups"},
+                { value: "emberDictPFL", label: "Channel PFL"},
+                { value: "emberDictGrpPFL", label: "Group PFL"},
+            ]
+            }
+            ]
+    }),
+            $("#node-input-oscDictAddress").typedInput({
+            types: [
+            {
+            value: "Dict",
+            options: [
+                { value: "oscDictFader", label: "Fader"},
+                { value: "oscDictGain", label: "Gain"},
+                { value: "oscDictGrp", label: "Groups"},
+                { value: "oscDictPFL", label: "Channel PFL"},
+                { value: "oscDictGrpPFL", label: "Group PFL"},
+            ]
+            }
+        ]
+    })
+        }
+});
+</script>
+
+<script type="text/html" data-template-name="create-arrays">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-emberFaderScheme"><i class="fa fa-tag"></i> Address Scheme Emberplus Fader</label>
+        <input type="text" id="node-input-emberFaderScheme" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-oscFaderScheme"><i class="fa fa-tag"></i> Address Scheme OSC Fader</label>
+        <input type="text" id="node-input-oscFaderScheme" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-lowerFader"><i class="fa fa-tag"></i> First Channel Number</label>
+        <input type="number" id="node-input-lowerFader" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-upperFader"><i class="fa fa-tag"></i> Last Channel Number</label>
+        <input type="number" id="node-input-upperFader" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-emberDictAddress"><i class="fa fa-tag"></i> Type of Emberplus-Dictionary to fill.</label>
+        <input type="text" id="node-input-emberDictAddress" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-oscDictAddress"><i class="fa fa-tag"></i> Type of OSC-Dictionary to fill.</label>
+        <input type="text" id="node-input-oscDictAddress" placeholder="">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="ember-out">
+    <p>Creates target and source arrays for ember-out node.</p>
+    <p>Enter emberplus address patterns, with x for variable. Define lower and upper channel limits.</p>
+    <p>Inject msg.topic "create" after you finished the config.</p>
+</script>
