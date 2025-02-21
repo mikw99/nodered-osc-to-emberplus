@@ -4,7 +4,7 @@ Last output of each node is for debugging. \
 (Added two additional nodes for Ember-to-Ember and Ember-to-OSC, read-me update will follow soon)
 
 Prerequisites in flow:
-Target and Source addresses are accessed via flow.context arrays with matching index.
+**Target and Source addresses are accessed via flow.context arrays with matching index.**
 
 To make managing your target and source arrays easier, EmberOut accepts separate arrays for different DSP targets. \
 You could also put all targets into one array, if that is more convenient for you. \
