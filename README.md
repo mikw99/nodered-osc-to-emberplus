@@ -4,10 +4,13 @@ Last output of each node is for debugging. \
 (Added two additional nodes for Ember-to-Ember and Ember-to-OSC, read-me update will follow soon)
 
 Prerequisites in flow:
+Target and Source addresses are accessed via flow.context arrays with matching index.
 
-As handling of different dsp is split, you need a few arrays in flow context. \
-The index of dictionaries must match. \
-It is recommended to run only one ember+ Node per subflow, and create the necessary arrays for each. \
+To make managing your target and source arrays easier, EmberOut accepts separate arrays for different DSP targets. \
+You could also put all targets into one array, if that is more convenient for you. \
+**It is recommended to create all arrays, even if they are empty.** See the template-folder for a function that creates them. \
+
+It is also recommended to run only one ember+ Node per subflow, and create the necessary arrays for each. \
 \
 For EmberOut: \
 oscDictFader -> emberDictFader  \
