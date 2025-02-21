@@ -22,8 +22,8 @@ oscDictGrpPFL -> emberDictGrpPFL  \
 For EmberIn: \
 emberInputDict   -> oscOutputDict \
 emberInputDictPFL -> oscOutputDictPFL \
-emberInputGrpDict   -> oscOutputGrpDict \
-emberInputGrpDictPFL -> oscOutputGrpDictPFL \
+emberInputDictGrp   -> oscOutputDictGrp \
+emberInputDictGrpPFL -> oscOutputDictGrpPFL \
 \
 For EmberX: \
 emberInputDict -> emberOutputDict 
