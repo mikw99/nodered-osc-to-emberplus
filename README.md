@@ -9,7 +9,7 @@ Target and Source addresses are accessed via flow.context arrays with matching i
 To make managing your target and source arrays easier, EmberOut accepts separate arrays for different DSP targets. \
 You could also put all targets into one array, if that is more convenient for you. \
 **It is recommended to create all arrays, even if they are empty.** See the template-folder for a function that creates them. \
-v1.4.0 Added a node that guides you through the creation of arrays. In Templates folder you also find flows with a customisable function instead. 
+v1.4.0 Added a node that guides you through the creation of arrays, at the moment only for EmberOut. In Templates folder you also find flows with a customisable function instead. 
 
 It is also recommended to run only one ember+ Node per subflow, and create the necessary arrays for each. \
 \
