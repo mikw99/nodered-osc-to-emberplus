@@ -24,7 +24,7 @@ module.exports = function(RED) {
             emberFaderArray[i] = emberFaderScheme.replace("x", i);
             oscFaderArray[i] = oscFaderScheme.replace("x", i);
         }
-        emberFaderArray = flowContext.set(flowDict);
+        emberFaderArray = flowContext.set(flowEmberDict);
         oscFaderArray = flowContext.set(flowOscDict);
         
         console.log("created Arrays");
