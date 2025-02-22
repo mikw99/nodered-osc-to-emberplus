@@ -114,6 +114,8 @@ function EmberOut(config) {
         }
     
         console.log("finished getNode operation. See log for errors.");
+        statMsg.payload = "getNode complete";
+        node.send([null, statMsg]);
     }
 
     //declare get-node function
