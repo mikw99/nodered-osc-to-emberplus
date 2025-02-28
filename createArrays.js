@@ -38,5 +38,5 @@ module.exports = function(RED) {
             }
         });
     }
-
+RED.nodes.registerType("create-arrays", CreateArrays);
 }
