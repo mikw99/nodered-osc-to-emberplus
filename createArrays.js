@@ -6,6 +6,8 @@ module.exports = function(RED) {
         const node = this;
         let flowContext = this.context().flow;
 
+        node.status({ fill: "yellow", shape: "dot", text: "Inject msg.topic 'create' to create arrays..." });
+
         let flowEmberDict = config.emberDictAddress;
         let flowOscDict = config.oscDictAddress;
 
@@ -28,6 +30,7 @@ module.exports = function(RED) {
         oscFaderArray = flowContext.set(flowOscDict);
         
         console.log("created Arrays");
+        node.status({ fill: "green", shape: "dot", text: "created" });
         
         }
 
