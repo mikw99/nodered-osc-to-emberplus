@@ -8,7 +8,7 @@ Prerequisites in flow:
 
 To make managing your target and source arrays easier, EmberOut accepts separate arrays for different DSP targets. \
 You could also put all targets into one array, if that is more convenient for you. \
-v1.4.0 Adds a node that guides you through the creation of arrays, at the moment only for EmberOut. In Templates folder you also find flows with a customisable function instead. 
+v1.4.0 Adds a node that guides you through the creation of arrays, at the moment only for EmberOut. It reacts to msg.topic "create". In Templates folder you also find flows with a customisable function instead. 
 
 It is also recommended to run only one ember+ Node per subflow, and create the necessary arrays for each. \
 \
