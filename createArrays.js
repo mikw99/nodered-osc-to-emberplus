@@ -1,6 +1,6 @@
 module.exports = function(RED) {
         
-    function CreateArrays(config) {
+    function createArrays(config) {
         RED.nodes.createNode(this, config);
     
         const node = this;
@@ -38,5 +38,5 @@ module.exports = function(RED) {
             }
         });
     }
-RED.nodes.registerType("create-arrays", CreateArrays);
+RED.nodes.registerType("create-arrays", createArrays);
 }
