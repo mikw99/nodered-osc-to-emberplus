@@ -19,8 +19,8 @@ module.exports = function(RED) {
 
         function createArrays() {
 
-        let x = config.lowerFader;
-        let y = config.upperFader;
+        let x = parseInt(config.lowerFader);
+        let y = parseInt(config.upperFader);
         let index = 0;
         
         for (let i = x; i < y; i++) {
