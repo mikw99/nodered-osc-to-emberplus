@@ -21,10 +21,12 @@ module.exports = function(RED) {
 
         let x = config.lowerFader;
         let y = config.upperFader;
+        let index = 0;
         
         for (let i = x; i < y; i++) {
-            emberFaderArray[i] = emberFaderScheme.replace("x", i);
-            oscFaderArray[i] = oscFaderScheme.replace("x", i);
+            emberFaderArray[index] = emberFaderScheme.replace("x", i);
+            oscFaderArray[index] = oscFaderScheme.replace("x", i);
+            index++;
         }
         flowContext.set("flowEmberDict", emberFaderArray);
         flowContext.set("flowOscDict", oscFaderArray);
