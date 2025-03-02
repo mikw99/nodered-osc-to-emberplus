@@ -9,9 +9,10 @@ module.exports = function(RED) {
         const node = this;
         let flowContext = this.context().flow;
         let statMsg = {};
-    
-        const client_1 = new EmberClient({ host: config.clientIP_1, port: config.clientPort_1, logger: new LoggingService(5), timeoutValue: 5000 });
-        const client_2 = new EmberClient({ host: config.clientIP_2, port: config.clientPort_2, logger: new LoggingService(5), timeoutValue: 5000 });
+        let t_out = config.clientTimeOut;
+        
+        const client_1 = new EmberClient({ host: config.clientIP_1, port: config.clientPort_1, logger: new LoggingService(5), timeoutValue: t_out });
+        const client_2 = new EmberClient({ host: config.clientIP_2, port: config.clientPort_2, logger: new LoggingService(5), timeoutValue: t_out });
 
         console.log("created clients");
         node.status({ fill: "yellow", shape: "dot", text: "Inject msg.topic reconnect to connect..." });
