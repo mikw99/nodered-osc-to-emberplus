@@ -15,6 +15,7 @@ module.exports = function(RED) {
         let oscFaderArray = new Array();
 
         let emberFaderScheme = config.emberFaderScheme;
+        
         let oscFaderScheme = config.oscFaderScheme;
 
         function createArrays() {
@@ -28,8 +29,8 @@ module.exports = function(RED) {
             oscFaderArray[index] = oscFaderScheme.replace("x", i);
             index++;
         }
-        flowContext.set("flowEmberDict", emberFaderArray);
-        flowContext.set("flowOscDict", oscFaderArray);
+        flowContext.set(config.emberDictAddress, emberFaderArray);
+        flowContext.set(config.oscDictAddress, oscFaderArray);
         
         console.log("created Array " + config.emberDictAddress + " " + emberFaderArray);
         node.status({ fill: "green", shape: "dot", text: "created" });

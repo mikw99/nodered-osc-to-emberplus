@@ -9,6 +9,7 @@ module.exports = function(RED) {
         const node = this;
         let flowContext = this.context().flow;
         let statMsg = {};
+        let t_out = config.clientTimeOut;
         const client = new EmberClient({ host: config.clientIP, port: config.clientPort, logger: new LoggingService(5), timeoutValue: 5000 });
 
         console.log("created clients");

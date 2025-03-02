@@ -5,7 +5,9 @@
         defaults: {
             name: {value:""},
             clientIP: {value:""},
-            clientPort: {value:"9000"}
+            clientPort: {value:9000},
+            clientTimeOut: {value: 5000}
+
         },
 
         inputs: 1,
@@ -28,7 +30,11 @@
     </div>
     <div class="form-row">
         <label for="node-input-clientPort"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-clientPort" placeholder="Client Port">
+        <input type="number" id="node-input-clientPort" placeholder="Client Port">
+    </div>
+    <div class="form-row">
+        <label for="node-input-clientTimeOut"><i class="fa fa-tag"></i> Timeout</label>
+        <input type="number" id="node-input-clientTimeOut" placeholder="TimeOut in ms">
     </div>
 </script>
 

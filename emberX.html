@@ -6,8 +6,9 @@
             name: {value:""},
             clientIP_1: {value:""},
             clientIP_2: {value:""},
-            clientPort_1: {value:"9000"},
-            clientPort_2: {value:"9000"}
+            clientPort_1: {value: 9000},
+            clientPort_2: {value: 9000},
+            clientTimeOut: {value: 5000}
         },
         inputs: 1,
         outputs: 1,
@@ -33,11 +34,15 @@
     </div>
     <div class="form-row">
         <label for="node-input-clientPort_1"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-clientPort_1" placeholder="Client_1 Port">
+        <input type="number" id="node-input-clientPort_1" placeholder="Client_1 Port">
     </div>
     <div class="form-row">
         <label for="node-input-clientPort_2"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-clientPort_2" placeholder="Client_2 Port">
+        <input type="number" id="node-input-clientPort_2" placeholder="Client_2 Port">
+    </div>
+    <div class="form-row">
+        <label for="node-input-clientTimeOut"><i class="fa fa-tag"></i> Timeout</label>
+        <input type="number" id="node-input-clientTimeOut" placeholder="TimeOut in ms">
     </div>
 </script>
 
