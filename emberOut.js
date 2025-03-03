@@ -388,10 +388,14 @@ function EmberOut(config) {
                 });
             }
             else {
-                (console.log("invalid PFL payload: " + msg.payload));
+                console.log("invalid PFL payload: " + msg.payload);
             }
             }
+        else {
+            console.log("received unknown osc message");
         }
+        }
+        
         
         else {
             console.log("received bad value or connection is disrupted");
