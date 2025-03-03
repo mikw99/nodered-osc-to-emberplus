@@ -149,7 +149,7 @@ module.exports = function(RED) {
                 if (emberNodesPFL[i].value === true) {
                     pflConv = 1;
                 }
-                else if (emberNodesPFL[i].value === true) {
+                else if (emberNodesPFL[i].value === false) {
                     pflConv = 0;
                 }
                 else {
@@ -175,7 +175,7 @@ module.exports = function(RED) {
                 if (emberNodesGrpPFL[i].value === true) {
                     pflConv = 1;
                 }
-                else if (emberNodesGrpPFL[i].value === true) {
+                else if (emberNodesGrpPFL[i].value === false) {
                     pflConv = 0;
                 }
                 else {
