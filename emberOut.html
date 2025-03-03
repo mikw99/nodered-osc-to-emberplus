@@ -40,4 +40,40 @@
 <script type="text/html" data-help-name="ember-out">
     <p>A specialized node that takes OSC messages and sends it to a LAWO-console</p>
     <p>Enter your console IP and Emberplus port, usually 9000 or 9001</p>
+
+    <h3>Prerequsites: </h3>
+    <dd>This node converts OSC-messages from source arrays to their respective index in an emberplus-target array <br>
+    The arrays are accessed via flow-context, so you need to create them first. <br>
+    <br>   
+        oscDictFader -> emberDictFader <br>   
+        oscDictGain -> emberDictGain <br>   
+        oscDictPFL -> emberDictPFL <br>   
+        oscDictGrp -> emberDictGrp <br>   
+        oscDictGrpPFL -> emberDictGrpPFL <br>   
+        <br>   
+        You should also provide an ignoreListDict with the addresses of each right-stereo channel in the target to avoid timeouts. <br>   
+    </dd>
+
+    <h3>Inputs:</h3>
+    <dl class="message-properties">
+        <dt>topic
+            <span class="property-type">string</span>
+        </dt>
+    <dl class="message-properties">
+        <dt>payload
+            <span class="property-type">string | number</span>
+        </dt>
+    
+    <h3>Details:</h3>
+    <dd>Commands are issued via injecting msg.topic. <br>   
+        1. "reconnect" to connect. <br>   
+        2. "get Nodes" to get the target emberplus-nodes. <br>   
+        3. "reScan" to get the nodes again, in case an error is thrown during verification. <br>   
+        4. "disconnect" to disconnect from target. <br>  
+        <br>
+        5. Inject osc-messages as strings according to your source arrays. <br>
+        <br> 
+        Values should be in <code>msg.payload</code>. <br>
+        Addresses should be in <code>msg.topic</code>. <br>
+    </dd>
 </script>
