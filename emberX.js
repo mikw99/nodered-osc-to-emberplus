@@ -59,6 +59,10 @@ module.exports = function(RED) {
         let emberOutputNodes = new Array();
         let emberOutputNodesGrp = new Array();
 
+        //store source node objects
+        let emberNodes = new Array();
+        let emberNodesGrp = new Array();
+
         let ignoreList = new Array();
 
     async function tryReconnect() {
@@ -113,8 +117,8 @@ module.exports = function(RED) {
             if (!ignoreList.includes(emberInputNodes[i])) {
 
             console.log("asked for embernode" + emberInputNodes[i]);
-            await client_1.getElementByPathAsync(emberInputNodes[i], () => {
-                client_2.setValue(emberOutputNodes[i], emberInputNodes[i].value);
+            emberNodes[i] = await client_1.getElementByPathAsync(emberInputNodes[i], () => {
+                client_2.setValue(emberOutputNodes[i], emberNodes[i].value);
             });
         }
     }
@@ -126,8 +130,8 @@ module.exports = function(RED) {
             if (!ignoreList.includes(emberInputNodesGrp[i])) {
                 
             console.log("asked for embernode" + emberInputNodesGrp[i]);
-            await client_1.getElementByPathAsync(emberInputNodesGrp[i], () => {
-                client_2.setValue(emberOutputNodesGrp[i], emberInputNodesGrp[i].value);
+            emberNodesGrp[i] = await client_1.getElementByPathAsync(emberInputNodesGrp[i], () => {
+                client_2.setValue(emberOutputNodesGrp[i], emberNodesGrp[i].value);
             });
         }
     }

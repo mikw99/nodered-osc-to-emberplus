@@ -1,7 +1,8 @@
 # nodered-osc-to-emberplus
 A specialized node to bridge a limited range of osc commands to a lawo console.\
 Last output of each node is for debugging. \
-(Added two additional nodes for Ember-to-Ember and Ember-to-OSC, read-me update will follow soon)
+Added two additional nodes for Ember-to-Ember and Ember-to-OSC, \
+**these are still in the test phase. Any feedback on bugs is hugely appreciated**.
 
 Prerequisites in flow:
 **Target and Source addresses are accessed via flow.context arrays with matching index.**

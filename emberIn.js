@@ -45,6 +45,11 @@ module.exports = function(RED) {
         let emberInputNodesGrpPFL = new Array();
         let oscOutputPathGrp = new Array();
         let oscOutputPathGrpPFL = new Array();
+
+        let emberNodesFader = new Array();
+        let emberNodesGrp = new Array();
+        let emberNodesPFL = new Array();
+        let emberNodesGrpPFL = new Array();
         
         let ignoreList = new Array();
 
@@ -91,12 +96,12 @@ module.exports = function(RED) {
             
             console.log("asked for embernode" + emberInputNodes[i]);
             
-            await client.getElementByPathAsync(emberInputNodes[i], () => {
+            emberNodesFader[i] = await client.getElementByPathAsync(emberInputNodes[i], () => {
                
                 let oscMsg = {};
 
                 oscMsg.topic = oscOutputPath[i];
-                oscMsg.payload = emberInputNodes[i].value;
+                oscMsg.payload = emberNodesFader[i].value;
 
                 node.send(oscMsg);
             });
@@ -108,12 +113,12 @@ module.exports = function(RED) {
             
             console.log("asked for Grp embernode" + emberInputNodesGrp[i]);
             
-            await client.getElementByPathAsync(emberInputNodesGrp[i], () => {
+            emberNodesGrp[i] = await client.getElementByPathAsync(emberInputNodesGrp[i], () => {
                
                 let oscMsg = {};
 
                 oscMsg.topic = oscOutputPathGrp[i];
-                oscMsg.payload = emberInputNodesGrp[i].value;
+                oscMsg.payload = emberNodesGrp[i].value;
 
                 node.send(oscMsg);
             });
@@ -138,13 +143,13 @@ module.exports = function(RED) {
             
             console.log("asked for PFL embernode" + emberInputNodesPFL[i]);
             
-            await client.getElementByPathAsync(emberInputNodesPFL[i], () => {
+            emberNodesPFL[i] = await client.getElementByPathAsync(emberInputNodesPFL[i], () => {
                 let oscMsg = {};
                 let pflConv;
-                if (emberInputNodesPFL[i].value === true) {
+                if (emberNodesPFL[i].value === true) {
                     pflConv = 1;
                 }
-                else if (emberInputNodesPFL[i].value === true) {
+                else if (emberNodesPFL[i].value === true) {
                     pflConv = 0;
                 }
                 else {
@@ -164,13 +169,13 @@ module.exports = function(RED) {
             
             console.log("asked for Grp PFL embernode" + emberInputNodesGrpPFL[i]);
             
-            await client.getElementByPathAsync(emberInputNodesGrpPFL[i], () => {
+            emberNodesGrpPFL[i] = await client.getElementByPathAsync(emberInputNodesGrpPFL[i], () => {
                 let oscMsg = {};
                 let pflConv;
-                if (emberInputNodesGrpPFL[i].value === true) {
+                if (emberNodesGrpPFL[i].value === true) {
                     pflConv = 1;
                 }
-                else if (emberInputNodesGrpPFL[i].value === true) {
+                else if (emberNodesGrpPFL[i].value === true) {
                     pflConv = 0;
                 }
                 else {

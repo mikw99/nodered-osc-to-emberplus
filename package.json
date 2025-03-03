@@ -1,6 +1,6 @@
 {
   "name": "@mikw99/nodered-osc-to-emberplus",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "a specialzed node to bridge osc-values to a lawo-console",
   "dependencies": {"@mikw99/node-emberplus-custom": "^1.0.5"},
   "main": "emberOut.js",
