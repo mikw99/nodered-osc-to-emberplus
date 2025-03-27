@@ -60,8 +60,11 @@ module.exports = function(RED) {
         let emberOutputNodesGrp = new Array();
 
         //store source node objects
-        let emberNodes = new Array();
-        let emberNodesGrp = new Array();
+        let emberNodesIn = new Array();
+        let emberNodesInGrp = new Array();
+
+        let emberNodesOut = new Array();
+        let emberNodesOutGrp = new Array();
 
         let ignoreList = new Array();
 
@@ -117,8 +120,10 @@ module.exports = function(RED) {
             if (!ignoreList.includes(emberInputNodes[i])) {
 
             console.log("asked for embernode" + emberInputNodes[i]);
-            emberNodes[i] = await client_1.getElementByPathAsync(emberInputNodes[i], () => {
-                client_2.setValue(emberOutputNodes[i], emberNodes[i].value);
+            emberNodesOut[i] = await client_2.getElementByPathAsync(emberOutputNodes[i]);
+
+            emberNodesIn[i] = await client_1.getElementByPathAsync(emberInputNodes[i], () => {
+                client_2.setValue(emberNodesOut[i], emberNodesIn[i].value);
             });
         }
     }
@@ -130,8 +135,11 @@ module.exports = function(RED) {
             if (!ignoreList.includes(emberInputNodesGrp[i])) {
                 
             console.log("asked for embernode" + emberInputNodesGrp[i]);
-            emberNodesGrp[i] = await client_1.getElementByPathAsync(emberInputNodesGrp[i], () => {
-                client_2.setValue(emberOutputNodesGrp[i], emberNodesGrp[i].value);
+
+            emberNodesOutGrp[i] = await client_2.getElementByPathAsync(emberOutputNodesGrp[i]);
+
+            emberNodesInGrp[i] = await client_1.getElementByPathAsync(emberInputNodesGrp[i], () => {
+                client_2.setValue(emberNodesOutGrp[i], emberNodesInGrp[i].value);
             });
         }
     }
