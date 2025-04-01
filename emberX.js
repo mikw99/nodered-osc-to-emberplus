@@ -145,7 +145,7 @@ module.exports = function(RED) {
     }
     }
     statMsg.topic = "status" + config.name;
-    statMsg.payload = "getNodes complete";
+    statMsg.payload = "getNode complete";
     node.send(statMsg);
     }
 
