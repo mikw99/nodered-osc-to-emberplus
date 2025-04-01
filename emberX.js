@@ -144,7 +144,9 @@ module.exports = function(RED) {
         }
     }
     }
-
+    statMsg.topic = "status" + config.name;
+    statMsg.payload = "getNodes complete";
+    node.send(statMsg);
     }
 
     //signal connection
